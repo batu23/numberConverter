@@ -1,0 +1,114 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% csrf_token %}
+
+
+    <div class="row mb-5">
+        <div class="col">
+            <p>
+            <button class="btn btn-info" type="button" data-toggle="collapse" data-target="#data-info" aria-expanded="false" aria-controls="info">
+                How does the tool work?
+            </button>
+        </p>
+        <div class="collapse" id="data-info">
+            <div class="card card-body bg-light text-info">
+                This tool has ability to convert any integer to its corresponding string of words and
+                to convert string of words to number<br>
+                -> Only numbers up to billion are converted to words!<br>
+                -> Please enter valid number words, only correct ones are converted to number!
+            </div>
+        </div>
+        </div>
+
+    </div>
+
+<div class="row mt-5">
+    <div class="col">
+        <div class="input-group mb-3">
+            <input id="n2w-input" style="width: 200px;" type="number" placeholder="Enter a number"  >
+            <div class="input-group-append">
+                <button class="btn btn-outline-primary" type="button" id="n2w-button">Convert to Words</button>
+            </div>
+        </div>
+        <div  class="alert alert-success" role="alert" id="n2w-res-success" style="display: none;">
+            <b><i>Result:</i> </b> <span></span>
+        </div>
+        <div class="alert alert-danger" role="alert" id="n2w-res-error" style="display: none;">
+            <b><i>Error:</i> </b> <span></span>
+        </div>
+    </div>
+
+    <div class="col">
+        <div class="input-group mb-3">
+            <textarea id="w2n-input" style="width: 350px; height: 100px;"  placeholder="Enter words" ></textarea>
+            <div class="input-group-append">
+                <button class="btn btn-outline-primary" type="button" id="w2n-button">Convert to Number</button>
+            </div>
+        </div>
+        <div class="alert alert-success" role="alert" id="w2n-res-success" style="display: none;">
+            <b><i>Result:</i> </b> <span></span>
+        </div>
+        <div class="alert alert-danger" role="alert" id="w2n-res-error" style="display: none;">
+            <b><i>Error:</i> </b> <span></span>
+        </div>
+    </div>
+</div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        $ =  jQuery;
+        let csrf = $('input[name="csrfmiddlewaretoken"]').val();
+
+        $("#n2w-button").click(() => {
+            let val = $('#n2w-input').val();
+            if (val){
+                $.ajax({
+                        url: '{% url "cApp:n2w" %}',
+                        data: { 'number' : val, 'csrfmiddlewaretoken' : csrf },
+                        dataType: 'json',
+                        method: 'POST',
+                        success: (data) => {
+                            $("#n2w-res-success span").text(data['res']);
+                            $("#n2w-res-success").show();
+                            $("#n2w-res-error").hide();
+                        },
+                        error: (err) => {
+                            console.log(err.responseText);
+                            $("#n2w-res-error span").text(err.responseText);
+                            $("#n2w-res-error").show();
+                            $("#n2w-res-success").hide();
+                        }
+                    }
+                );
+            }
+        });
+
+        $("#w2n-button").click(() => {
+            let val = $('#w2n-input').val();
+            if (val){
+                $.ajax({
+                        url: '{% url "cApp:w2n" %}',
+                        data: { 'text' : val, 'csrfmiddlewaretoken' : csrf },
+                        dataType: 'json',
+                        method: 'POST',
+                        success: (data) => {
+                            $("#w2n-res-success span").text(data['res']);
+                            $("#w2n-res-success").show();
+                            $("#w2n-res-error").hide();
+                        },
+                        error: (err) => {
+                            console.log(err.responseText);
+                            $("#w2n-res-error span").text(err.responseText);
+                            $("#w2n-res-error").show();
+                            $("#w2n-res-success").hide();
+                        }
+                    }
+                );
+            }
+        });
+    })
+
+  </script>
+
+{% endblock %}
