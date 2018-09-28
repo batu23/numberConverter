@@ -1,3 +1,8 @@
+"""
+Created by: Batuhan Demir on 27/09/2018
+contact: dmrbatu23@gmail.com
+"""
+
 numbers_dict = {
     'zero': 0,
     'one': 1,
@@ -34,35 +39,46 @@ numbers_dict = {
 }
 
 
-def get_words_as_number(number_sentence):
+def get_words_as_number(sentence):
+    """
+    given sentence of words of number returns corresponding integer value
+    only works up to billion
+    algorithm mainly works checking the indexes like billion, million, thousand and hundred
+    returns error if word not in dict or words are not organized correctly like 'one thousand two thousand'
+    takes words up to some index and formats, calculates mathematical result, going over the list from beginning to end
+    :param sentence: string
+    :return: result: integer
+    """
 
-    split_words = number_sentence.strip().split()  # strip extra spaces and split sentence into words
+    split_words = sentence.strip().split()  # strip extra spaces and split sentence into words list
 
     clean_numbers = []
 
-    # removing and, & etc.
+    # append only if word is in dictionary
     for word in split_words:
         if word in numbers_dict:
             clean_numbers.append(word)
 
     # Error message if the user enters invalid input!
     if len(clean_numbers) == 0:
-        raise ValueError("Please enter a valid number word (eg. two million twenty three thousand and forty nine)")
+        raise ValueError("Please enter a valid number word (eg. six million and five hundred thousand and eight hundred sixty)")
 
     # Error if user enters million,billion, thousand or decimal point twice
     if clean_numbers.count('thousand') > 1 or clean_numbers.count('million') > 1 or clean_numbers.count('billion') > 1:
-        raise ValueError("Please enter a valid number word (eg. two million twenty three thousand and forty nine)")
+        raise ValueError("Please enter a valid number word (eg. six million and five hundred thousand and eight hundred sixty)")
 
     billion_index = clean_numbers.index('billion') if 'billion' in clean_numbers else -1
     million_index = clean_numbers.index('million') if 'million' in clean_numbers else -1
     thousand_index = clean_numbers.index('thousand') if 'thousand' in clean_numbers else -1
     hundred_index = clean_numbers.index('hundred') if 'hundred' in clean_numbers else -1
 
+    # Error if  wrong order of words
     if (thousand_index > -1 and (thousand_index < million_index or thousand_index < billion_index)) or (million_index>-1 and million_index < billion_index):
-        raise ValueError("Please enter a valid number word (eg. two million twenty three thousand and forty nine)")
+        raise ValueError("Please enter a valid number word (eg. six million and five hundred thousand and eight hundred sixtye)")
 
     total_sum = 0
 
+    # goes from billions down to hundred getting the words before the index or between the indexes in the list of words
     if len(clean_numbers) > 0:
         if len(clean_numbers) == 1:
                 return numbers_dict[clean_numbers[0]]
@@ -104,6 +120,13 @@ def get_words_as_number(number_sentence):
 
 
 def number_formation(number_words):
+    """
+    Formats given word list to required number
+    Gets corresponding word from dict and calculates mathematical result
+    should be given at most 4 length of list eq. thousand at most
+    :param number_words: list
+    :return: result: integer
+    """
     numbers = []
     for number_word in number_words:
         numbers.append(numbers_dict[number_word])

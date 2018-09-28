@@ -1,49 +1,20 @@
-# Heroku Django Starter Template
+## Trendyol Case Study 
+This is a basic number converter that can be used to convert numbers to word strings and vice versa.
+- Built regarding case study for trendyol.com
+- currently avaliable online! www.batu23.me
 
-An utterly fantastic project starter template for Django 2.0.
-
-## Features
-
-- Production-ready configuration for Static Files, Database Settings, Gunicorn, etc.
-- Enhancements to Django's static file serving functionality via WhiteNoise.
-- Latest Python 3.6 runtime environment.
-
-## How to Use
+## How to Run on local
 
 To use this project, follow these steps:
 
-1. Create your working environment.
-2. Install Django (`$ pipenv install django`)
-3. Create a new project using this template
+1. Clone this repo in a directory
+2. Create a virtualenv and activate eg. `$ python3 -m venv . && source bin/activate`
+3. Install dependencies using pip or pipenv `$ pip install -r req.txt` or `$ pipenv install`
+4. run `$ python manage.py migrate && python manage.py runserver `
+5. run `$ python manage.py test` to run tests.
 
-## Creating Your Project
-
-Using this template to create a new Django app is easy::
-
-    $ django-admin.py startproject --template=https://github.com/heroku/heroku-django-template/archive/master.zip --name=Procfile helloworld
-
-(If this doesn't work on windows, replace `django-admin.py` with `django-admin`)
-
-You can replace ``helloworld`` with your desired project name.
-
-## Deployment to Heroku
-
-    $ git init
-    $ git add -A
-    $ git commit -m "Initial commit"
-
-    $ heroku create
-    $ git push heroku master
-
-    $ heroku run python manage.py migrate
-
-See also, a [ready-made application](https://github.com/heroku/python-getting-started), ready to deploy.
-
+### Dev
+- Built with Heroku Django Template
+- Uses Python3 and Django2
 
 ## License: MIT
-
-## Further Reading
-
-- [Gunicorn](https://warehouse.python.org/project/gunicorn/)
-- [WhiteNoise](https://warehouse.python.org/project/whitenoise/)
-- [dj-database-url](https://warehouse.python.org/project/dj-database-url/)
