@@ -27,7 +27,6 @@ def w2n(request):
             res = w2n_util.get_words_as_number(words)
             return JsonResponse({'res': res})
         except Exception as e:
-            print(e)
             return HttpResponse(e, content_type='application/json', status=406)
     else:
         return HttpResponseBadRequest()

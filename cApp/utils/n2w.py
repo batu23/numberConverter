@@ -1,4 +1,3 @@
-
 zero = 'zero'
 
 up_to_19 = [
@@ -79,16 +78,3 @@ def get_number_as_words(n):
     if n == 0:
         return zero
     return normalize(abs(n))
-
-
-def main(n):
-    # n = int(raw_input("Please enter an integer:\n>> "))
-
-    # expected='ninety-five quadrillion, five hundred and five trillion, eight hundred and ninety-six billion, six hundred and thirty-nine million, six hundred and thirty-one thousand, eight hundred and ninety-three'
-    print(get_number_as_words(n))
-    # print(expected)
-    # assert(get_number_as_words(n)==expected)
-
-
-if __name__ == "__main__":
-    main()
