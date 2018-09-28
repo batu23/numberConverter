@@ -8,8 +8,9 @@ This is a basic number converter that can be used to convert numbers to word str
 To use this project, follow these steps:
 
 1. Clone this repo in a directory
-2. Create a virtualenv and activate eg. `$ python3 -m venv . && source bin/activate`
-3. Install dependencies using pip or pipenv `$ pip install -r req.txt` or `$ pipenv install`
+2. Create a virtualenv and activate eg. 
+`$ python3 -m venv . && source bin/activate ('cd Scripts && activate' for windows)`
+3. Go main dir and install dependencies using pip or pipenv `$ pip install -r req.txt` or `$ pipenv install`
 4. run `$ python manage.py migrate && python manage.py runserver `
 5. run `$ python manage.py test` to run tests.
 
