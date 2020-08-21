@@ -61,11 +61,13 @@ def get_words_as_number(sentence):
 
     # Error message if the user enters invalid input!
     if len(clean_numbers) == 0:
-        raise ValueError("Please enter a valid number word (eg. six million and five hundred thousand and eight hundred sixty)")
+        raise ValueError("Please enter a valid number word (eg. six million and five hundred thousand and eight "
+                         "hundred sixty)")
 
     # Error if user enters million,billion, thousand or decimal point twice
     if clean_numbers.count('thousand') > 1 or clean_numbers.count('million') > 1 or clean_numbers.count('billion') > 1:
-        raise ValueError("Please enter a valid number word (eg. six million and five hundred thousand and eight hundred sixty)")
+        raise ValueError("Please enter a valid number word (eg. six million and five hundred thousand and eight "
+                         "hundred sixty)")
 
     billion_index = clean_numbers.index('billion') if 'billion' in clean_numbers else -1
     million_index = clean_numbers.index('million') if 'million' in clean_numbers else -1
@@ -73,15 +75,19 @@ def get_words_as_number(sentence):
     hundred_index = clean_numbers.index('hundred') if 'hundred' in clean_numbers else -1
 
     # Error if  wrong order of words
-    if (thousand_index > -1 and (thousand_index < million_index or thousand_index < billion_index)) or (million_index>-1 and million_index < billion_index):
-        raise ValueError("Please enter a valid number word (eg. six million and five hundred thousand and eight hundred sixtye)")
+    if (thousand_index > -1 and (thousand_index < million_index or thousand_index < billion_index)) or (
+            -1 < million_index < billion_index):
+        raise ValueError("Please enter a valid number word (eg. six million and five hundred thousand and eight "
+                         "hundred sixty)")
 
     total_sum = 0
 
     # goes from billions down to hundred getting the words before the index or between the indexes in the list of words
     if len(clean_numbers) > 0:
         if len(clean_numbers) == 1:
-                return numbers_dict[clean_numbers[0]]
+            return numbers_dict[clean_numbers[0]]
+        elif len(clean_numbers) == 2:
+            return numbers_dict[clean_numbers[0]] + numbers_dict[clean_numbers[1]]
         else:
             if billion_index > -1:
                 billion_multiplier = number_formation(clean_numbers[0:billion_index])
